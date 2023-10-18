@@ -1,0 +1,40 @@
+person:
+  # string userName
+  user-name: hjf
+  # Boolean boss
+  boss: false
+  # Date birth
+  birth: 2001/05/21
+  # Integer age
+  age: 22
+  # String[] interests
+  interests: [ read, game, chess ]
+  # List<String> animal
+  animal: [ doggy, kitty, piggy, pony ]
+  # Map<String, Object> score
+  score:
+    math: 1
+    english: A
+    chinese: true
+  # Set<Double> salaries
+  salaries: [ 2000.0, 3000, 5000.499, ]
+  # Pet pet
+  pet:
+    name: littlePrince
+    weight: 13.0
+  # Map<String, List<Pet>> allPets
+  all-pets:
+    hjf:
+      - { name: Jerry, weight: 1 }
+      - { name: Tom, weight: 10.34 }
+    zcy:
+      [
+        {
+          name: Tuffy,
+          weight: 0.56
+        },
+        {
+          name: Muscles,
+          weight: 1.90
+        }
+      ]
