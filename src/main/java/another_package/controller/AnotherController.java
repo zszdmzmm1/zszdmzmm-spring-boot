@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AnotherController {
     @GetMapping("/another-package")
     String aPageOfAnotherPackage(){
-        return "can not be scan of default situation!";
+        return "can be scan because of the configuration";
     }
 }
