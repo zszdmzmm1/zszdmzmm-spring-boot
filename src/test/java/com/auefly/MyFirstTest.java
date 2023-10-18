@@ -1,0 +1,27 @@
+package com.auefly;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+public class MyFirstTest {
+    @Test
+    @DisplayName("第一个SpringBootTest: @AutoConfigureMockMvc mockMvc.perform()")
+    void homePageTest(@Autowired MockMvc mockMvc) throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+                .andExpect(status().is(200))
+                //equals to
+                .andExpect(status().isOk())
+                
+                .andExpect(content().string("Hello World!"));
+    }
+}
