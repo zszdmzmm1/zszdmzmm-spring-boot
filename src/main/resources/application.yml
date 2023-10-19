@@ -43,5 +43,8 @@ spring:
   web:
     resources:
       # default value
-      static-locations: ["classpath:/META-INF/resources/",
-                          "classpath:/resources/", "classpath:/static/", "classpath:/public/"]
+      static-locations: [ "classpath:/META-INF/resources/",
+                          "classpath:/resources/", "classpath:/static/", "classpath:/public/" ]
+  mvc:
+    contentnegotiation:
+      favor-parameter: true

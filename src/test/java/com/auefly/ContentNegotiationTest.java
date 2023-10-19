@@ -26,4 +26,13 @@ public class ContentNegotiationTest {
                         "<weight>12.7</weight>" +
                         "</Pet>"));
     }
+
+    @Test
+    @DisplayName("ContentNegotiation: json")
+    public void favorParam(@Autowired MockMvc mockMvc) throws Exception {
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder = MockMvcRequestBuilders.get("/xml-and-json?format=json");
+        mockMvc.perform(mockHttpServletRequestBuilder)
+                .andExpect(MockMvcResultMatchers.content().string(""" 
+                        {"name":"jerry","weight":12.7}"""));
+    }
 }
