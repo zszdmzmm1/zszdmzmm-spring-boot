@@ -16,6 +16,6 @@ public class WebjarTest {
     @Test
     @DisplayName("webjar引入bootstrap")
     public void bootstrapTest(@Autowired MockMvc mockMvc) throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/webjars/bootstrap/5.3.0/css/bootstrap.min.css")).andExpect(status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/webjars/bootstrap/css/bootstrap.min.css")).andExpect(status().isOk());
     }
 }
