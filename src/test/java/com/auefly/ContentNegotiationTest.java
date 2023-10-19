@@ -29,8 +29,8 @@ public class ContentNegotiationTest {
 
     @Test
     @DisplayName("ContentNegotiation: json")
-    public void customParam(@Autowired MockMvc mockMvc) throws Exception {
-        MockHttpServletRequestBuilder mockHttpServletRequestBuilder = MockMvcRequestBuilders.get("/xml-and-json?way=myJson");
+    public void favorParam(@Autowired MockMvc mockMvc) throws Exception {
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder = MockMvcRequestBuilders.get("/xml-and-json?format=json");
         mockMvc.perform(mockHttpServletRequestBuilder)
                 .andExpect(MockMvcResultMatchers.content().string(""" 
                         {"name":"jerry","weight":12.7}"""));

@@ -48,6 +48,8 @@ spring:
   mvc:
     contentnegotiation:
       favor-parameter: true
-      media-types:
-        myJson: application/json
-      parameter-name: way
+      # valueName and means
+#      media-types:
+#        myJson: application/json
+      # keyName
+#      parameter-name: way
