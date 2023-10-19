@@ -38,3 +38,10 @@ person:
           weight: 1.90
         }
       ]
+
+spring:
+  web:
+    resources:
+      # default value
+      static-locations: ["classpath:/META-INF/resources/",
+                          "classpath:/resources/", "classpath:/static/", "classpath:/public/"]
