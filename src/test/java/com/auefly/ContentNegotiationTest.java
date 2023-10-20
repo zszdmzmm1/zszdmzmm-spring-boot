@@ -43,6 +43,7 @@ public class ContentNegotiationTest {
                         {"name":"jerry","weight":12.7}"""));
     }
 
+
     @Test
     @DisplayName("RequestBody 接收json封装成类和 jsonPath")
     public void requestBodyTest(@Autowired MockMvc mockMvc) throws Exception {
@@ -56,6 +57,19 @@ public class ContentNegotiationTest {
                                     "weight": 3.0
                                   }
                                 }"""))
+                .andExpect(MockMvcResultMatchers.jsonPath("userName").value("hjf"))
+                .andExpect(MockMvcResultMatchers.jsonPath("pet.name").value("jerry"))
+                .andExpect(MockMvcResultMatchers.jsonPath("pet.weight").value(3.0));
+    }
+
+    @Test
+    @DisplayName("RequestParam 接收json封装成类和 jsonPath")
+    public void convertorTest(@Autowired MockMvc mockMvc) throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/save-person1").
+                        contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("pet.name", "jerry")
+                        .param("pet.weight", "3.0")
+                        .param("userName", "hjf"))
                 .andExpect(MockMvcResultMatchers.jsonPath("userName").value("hjf"))
                 .andExpect(MockMvcResultMatchers.jsonPath("pet.name").value("jerry"))
                 .andExpect(MockMvcResultMatchers.jsonPath("pet.weight").value(3.0));
