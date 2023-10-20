@@ -86,4 +86,13 @@ public class ContentNegotiationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("pet.name").value("jerry"))
                 .andExpect(MockMvcResultMatchers.jsonPath("pet.weight").value(3.0));
     }
+
+    @Test
+    @DisplayName("HttpMessageConverter 自定义类")
+    public void httpMessageConverterTest(@Autowired MockMvc mockMvc) throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/save-person1")
+                        .accept("application/x-custom")
+                        .param("userName", "hjf"))
+                .andExpect(MockMvcResultMatchers.content().string("userName: hjf___ignore other"));
+    }
 }
