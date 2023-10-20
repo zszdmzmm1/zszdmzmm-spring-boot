@@ -1,5 +1,6 @@
 package com.auefly;
 
+import io.micrometer.core.ipc.http.HttpSender;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcResultMatchersDsl;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -34,5 +34,23 @@ public class ContentNegotiationTest {
         mockMvc.perform(mockHttpServletRequestBuilder)
                 .andExpect(MockMvcResultMatchers.content().string(""" 
                         {"name":"jerry","weight":12.7}"""));
+    }
+
+    @Test
+    @DisplayName("RequestBody 接收json封装成类和 jsonPath")
+    public void requestBodyTest(@Autowired MockMvc mockMvc) throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/save-person").
+                contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                {
+                  "userName": "hjf",
+                  "pet": {
+                    "name": "jerry",
+                    "weight": 3.0
+                  }
+                }"""))
+                .andExpect(MockMvcResultMatchers.jsonPath("userName").value("hjf"))
+                .andExpect(MockMvcResultMatchers.jsonPath("pet.name").value("jerry"))
+                .andExpect(MockMvcResultMatchers.jsonPath("pet.weight").value(3.0));
     }
 }

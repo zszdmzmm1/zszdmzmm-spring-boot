@@ -1,0 +1,13 @@
+### savePerson
+POST http://localhost:8080/save-person
+Content-Type: application/json
+
+{
+  "userName": "hjf",
+  "pet": {
+    "name": "jerry",
+    "weight": 3.0
+  }
+}
+
+###

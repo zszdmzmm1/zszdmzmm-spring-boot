@@ -1,9 +1,9 @@
 package com.auefly.controller;
 
+import com.auefly.pojo.Person;
 import com.auefly.pojo.Pet;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class WebController {
@@ -20,5 +20,11 @@ public class WebController {
         pet.setName("jerry");
         pet.setWeight(12.7);
         return pet;
+    }
+
+    @PostMapping("/save-person")
+    @ResponseBody
+    public Person savePerson(@RequestBody Person person){
+        return person;
     }
 }
