@@ -64,11 +64,23 @@ public class ContentNegotiationTest {
 
     @Test
     @DisplayName("RequestParam 接收json封装成类和 jsonPath")
-    public void convertorTest(@Autowired MockMvc mockMvc) throws Exception {
+    public void requestParamTest(@Autowired MockMvc mockMvc) throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/save-person1").
                         contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("pet.name", "jerry")
                         .param("pet.weight", "3.0")
+                        .param("userName", "hjf"))
+                .andExpect(MockMvcResultMatchers.jsonPath("userName").value("hjf"))
+                .andExpect(MockMvcResultMatchers.jsonPath("pet.name").value("jerry"))
+                .andExpect(MockMvcResultMatchers.jsonPath("pet.weight").value(3.0));
+    }
+
+    @Test
+    @DisplayName("Converter 自定义类")
+    public void converterTest(@Autowired MockMvc mockMvc) throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/save-person1").
+                        contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("pet", "jerry,3.0")
                         .param("userName", "hjf"))
                 .andExpect(MockMvcResultMatchers.jsonPath("userName").value("hjf"))
                 .andExpect(MockMvcResultMatchers.jsonPath("pet.name").value("jerry"))

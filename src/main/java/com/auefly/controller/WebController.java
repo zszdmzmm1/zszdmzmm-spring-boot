@@ -27,4 +27,11 @@ public class WebController {
     public Person savePerson(@RequestBody Person person){
         return person;
     }
+
+    @PostMapping("/save-person1")
+    @ResponseBody
+    public Person savePerson1(Person person){
+        return person;
+    }
+
 }
