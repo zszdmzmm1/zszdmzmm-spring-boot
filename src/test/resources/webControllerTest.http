@@ -10,4 +10,10 @@ Content-Type: application/json
   }
 }
 
-###
+### 500error 返回json格式，页面打开浏览器查看
+GET http://localhost:8080/error5xx
+Content-Type: application/json
+
+### 400eror 返回json格式，页面打开浏览器查看
+GET http://localhost:8080/page_not_found
+Accept: application/json

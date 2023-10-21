@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${status}"></title>
+</head>
+<body>
+    <div>path：<span th:text="${path}"></span> </div>
+    <div>timestamp：<span th:text="${#dates.format(timestamp,'yyyy-MM-dd HH:mm:ss')}"></span> </div>
+    <div>status：<span th:text="${status}"></span> </div>
+    <div>error：<span th:text="${error}"></span> </div>
+    <div>message：<span th:text="${message}"></span> </div>
+    <div>trace：<span th:text="${trace}"></span> </div>
+</body>
+</html>
