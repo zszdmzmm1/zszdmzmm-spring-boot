@@ -62,6 +62,6 @@ spring:
 
 
 ## 将数据库的下划线命名法与java的驼峰命名法对应
-mybatis:
+mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
