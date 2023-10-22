@@ -17,3 +17,7 @@ Content-Type: application/json
 ### 400eror 返回json格式，页面打开浏览器查看
 GET http://localhost:8080/page_not_found
 Accept: application/json
+
+### selectUser
+GET http://localhost:8080/select-user
+Accept: application/json
