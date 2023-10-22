@@ -53,3 +53,9 @@ spring:
 #        myJson: application/json
       # keyName
 #      parameter-name: way
+
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/blog?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+#    username: root
+#    password: 0521
