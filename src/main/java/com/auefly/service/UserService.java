@@ -28,8 +28,8 @@ public class UserService implements IService<User> {
     @Autowired
     UserMapper mapper;
 
-    public List<User> selectUser() {
-        return mapper.list();
+    public IPage<User> selectUser(IPage<User> userPage) {
+        return mapper.selectPageVo(userPage);
     }
 
     @Override

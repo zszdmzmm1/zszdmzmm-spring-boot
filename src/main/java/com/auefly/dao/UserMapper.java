@@ -15,7 +15,7 @@ import java.util.Map;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
     @Select(value = "SELECT * FROM user")
-    List<User> list();
+    IPage<User> selectPageVo(IPage<?> page);
 
 
     //-------------------------------------------

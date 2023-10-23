@@ -18,6 +18,10 @@ Content-Type: application/json
 GET http://localhost:8080/page_not_found
 Accept: application/json
 
-### selectUser
+### selectUser 指定
+GET http://localhost:8080/select-user?page=1&count=2
+Accept: application/json
+
+### selectUser 默认值
 GET http://localhost:8080/select-user
 Accept: application/json
