@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class PostServiceImpl implements PostService {
     @Autowired
@@ -28,20 +29,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public boolean save(Post post) {
-        postMapper.add(post);
-        return true;
+    public int save(Post post) {
+        return postMapper.add(post);
     }
 
     @Override
-    public boolean update(Post post) {
-        postMapper.update(post);
-        return true;
+    public int update(Post post) {
+        return postMapper.update(post);
     }
 
     @Override
-    public boolean deleteById(long id) {
-        postMapper.deleteById(id);
-        return true;
+    public int deleteById(long id) {
+        return postMapper.deleteById(id);
     }
 }
