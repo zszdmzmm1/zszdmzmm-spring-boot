@@ -3,6 +3,7 @@ package com.auefly.sb04ssm.controller;
 
 import com.auefly.sb04ssm.pojo.Post;
 import com.auefly.sb04ssm.service.PostService;
+import com.auefly.sb04ssm.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,10 +16,10 @@ public class PostController {
     PostService postService;
 
     @GetMapping
-    List<Post> index(@RequestParam(value = "page", defaultValue = "1") int page,
-                     @RequestParam(value = "perPage", defaultValue = "10") int perPage)
+    R index(@RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "perPage", defaultValue = "10") int perPage)
     {
-        return postService.getByPage(perPage, (page - 1) * perPage);
+        return R.ok(postService.getByPage(perPage, (page - 1) * perPage));
     }
 
     @PostMapping

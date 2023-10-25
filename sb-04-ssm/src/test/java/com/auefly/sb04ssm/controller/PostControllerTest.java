@@ -28,8 +28,8 @@ class PostControllerTest {
     void index() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/posts"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("*.pid", hasSize(10)))
-                .andExpect(MockMvcResultMatchers.jsonPath("*.pid", hasItems(1, 10)));
+                .andExpect(MockMvcResultMatchers.jsonPath("data.*.pid", hasSize(10)))
+                .andExpect(MockMvcResultMatchers.jsonPath("data.*.pid", hasItems(1, 10)));
     }
 
     @Test
@@ -37,7 +37,7 @@ class PostControllerTest {
     void indexWithPage() throws Exception {
         int perPage = 3;
         mvc.perform(MockMvcRequestBuilders.get("/posts").queryParam("page", "2").queryParam("perPage", perPage+""))
-                .andExpect(MockMvcResultMatchers.jsonPath("*.pid", hasSize(perPage)));
+                .andExpect(MockMvcResultMatchers.jsonPath("data.*.pid", hasSize(perPage)));
     }
 
     @Test
