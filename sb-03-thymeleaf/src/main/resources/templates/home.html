@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>home</title>
-  <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-</head>
-<body class="d-flex justify-content-center">
-  <div class="display-5">
-    welcome! <span th:text="${session.get('user').email}"></span>
-  </div>
-</body>
-</html>
+<div th:replace="~{ app :: layout(home, ~{::#main_content})}" xmlns:th="http://www.thymeleaf.org">
+    <body class="d-flex justify-content-center" id="main_content">
+        <div class="display-5">
+            welcome! <span th:text="${session.get('user').email}"></span>
+        </div>
+    </body>
+</div>
