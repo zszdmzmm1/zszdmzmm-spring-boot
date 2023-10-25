@@ -48,6 +48,17 @@ class LoginControllerTest {
                         .param("password", "incorrect-password")
                 )
                 .andExpect(MockMvcResultMatchers.request().sessionAttribute("user", Matchers.nullValue()))
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/login"));
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/login"))
+                .andExpect(MockMvcResultMatchers.flash().attribute("msg", "密码错误!"));
+    }
+
+    @Test
+    @DisplayName("测试未登录访问homePage")
+    void testVisitHomePageWithoutLogin() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/home"))
+                .andExpect(MockMvcResultMatchers.request().sessionAttribute("user", Matchers.nullValue()))
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/login"))
+                .andExpect(MockMvcResultMatchers.flash().attribute("msg", "请登录!"));
     }
 }
