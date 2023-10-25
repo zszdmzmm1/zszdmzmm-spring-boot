@@ -23,23 +23,23 @@ public class PostController {
     }
 
     @PostMapping
-    int store(@RequestBody Post post) {
-        return postService.save(post);
+    R store(@RequestBody Post post) {
+        return R.ok(postService.save(post));
     }
 
     @GetMapping("/{id}")
-    Post show(@PathVariable long id) {
-        return postService.getById(id);
+    R show(@PathVariable long id) {
+        return R.ok(postService.getById(id));
     }
 
     @PutMapping("/{id}")
-    int update(@PathVariable long id, @RequestBody Post post) {
+    R update(@PathVariable long id, @RequestBody Post post) {
         post.setPid(id);
-        return postService.update(post);
+        return R.ok(postService.update(post));
     }
 
     @DeleteMapping("/{id}")
-    int delete(@PathVariable long id) {
-        return postService.deleteById(id);
+    R delete(@PathVariable long id) {
+        return R.ok(postService.deleteById(id));
     }
 }

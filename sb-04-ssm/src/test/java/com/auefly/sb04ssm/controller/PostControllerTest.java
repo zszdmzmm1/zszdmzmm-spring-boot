@@ -57,14 +57,14 @@ class PostControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(post)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("1"));
+                .andExpect(MockMvcResultMatchers.jsonPath("data").value(1));
     }
 
     @Test
     @DisplayName("show")
     void show() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/posts/5"))
-                .andExpect(MockMvcResultMatchers.jsonPath("title").value("||||||||||||||||||||||||||||||"));
+                .andExpect(MockMvcResultMatchers.jsonPath("data.title").value("||||||||||||||||||||||||||||||"));
     }
 
     @Test
@@ -80,7 +80,7 @@ class PostControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(post)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("1"));
+                .andExpect(MockMvcResultMatchers.jsonPath("data").value(1));
     }
 
     @Test
@@ -88,6 +88,6 @@ class PostControllerTest {
     void delete() throws Exception {
         mvc.perform(MockMvcRequestBuilders.delete("/posts/5"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("1"));
+                .andExpect(MockMvcResultMatchers.jsonPath("data").value(1));
     }
 }
