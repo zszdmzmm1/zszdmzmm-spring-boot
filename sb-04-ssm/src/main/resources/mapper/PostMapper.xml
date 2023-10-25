@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.auefly.sb04ssm.dao.PostMapper">
+
+    <select id="selectAll" resultType="com.auefly.sb04ssm.pojo.Post">
+        select * from post;
+    </select>
+
+    <select id="selectByPage" resultType="com.auefly.sb04ssm.pojo.Post">
+        select * from post limit #{rowCount} offset #{offset} ;
+    </select>
+
+    <select id="sqlStatementWithSpecialTag" resultType="com.auefly.sb04ssm.pojo.Post">
+        select *
+        from post
+        where pid
+        <![CDATA[
+		    <
+		]]>
+        1000;
+    </select>
+    <select id="selectByCondition" resultType="com.auefly.sb04ssm.pojo.Post">
+        select *
+        from post
+        where status = #{status}
+          and title like #{title}
+          and content like #{content}
+    </select>
+
+    <select id="selectByConditionWithDynamicSQL" resultType="com.auefly.sb04ssm.pojo.Post">
+        select *
+        from post
+        <where>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="title != null and title != ''">
+                and title like #{title}
+            </if>
+            <if test="content != null and content != ''">
+                and content like #{content}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByOneCondition" resultType="com.auefly.sb04ssm.pojo.Post">
+        select *
+        from post
+        <where>
+            <choose>
+                <when test="status != null">
+                    status = #{status}
+                </when>
+                <when test="title != null and title != ''">
+                    title like #{title}
+                </when>
+                <when test="content != null and content != ''">
+                    content like #{content}
+                </when>
+            </choose>
+        </where>
+    </select>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="pid">
+        insert into post (title, cover, description, content, status, user_id)
+        values (#{title},  #{cover}, #{description}, #{content}, #{status}, #{userId})
+    </insert>
+
+    <update id="update">
+        update post
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="cover != null">
+                cover = #{cover},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="view != null">
+                view = #{view},
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time = #{lastUpdateTime},
+            </if>
+        </set>
+        where pid = #{pid}
+    </update>
+
+    <delete id="deleteById">
+        delete from post where pid = #{id}
+    </delete>
+
+    <delete id="deleteByIds">
+        delete from post where pid
+        in
+        <foreach collection="arg0" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
+
+
