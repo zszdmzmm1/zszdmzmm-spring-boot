@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @SpringBootTest(properties = "management.endpoints.web.exposure.include=*")
@@ -82,5 +83,15 @@ public class ActuatorExposeAllTest {
                     }
             );
         }
+    }
+
+    @Test
+    @DisplayName("management.endpoints.web.exposure.include=* /actuator/health")
+    void customActuatorTest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/actuator/health"))
+                .andExpect(MockMvcResultMatchers.jsonPath("components").value(Matchers.aMapWithSize(Matchers.greaterThan(2))))
+                .andExpect(MockMvcResultMatchers.jsonPath("components.custom").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("status", Matchers.in(Arrays.asList("DOWN", "UP"))))
+                .andExpect(MockMvcResultMatchers.jsonPath("components.custom.status", Matchers.in(Arrays.asList("DOWN", "UP"))));
     }
 }
