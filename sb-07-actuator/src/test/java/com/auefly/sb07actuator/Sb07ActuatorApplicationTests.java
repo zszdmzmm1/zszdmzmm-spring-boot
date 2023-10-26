@@ -34,4 +34,16 @@ class Sb07ActuatorApplicationTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("status").value("UP"));
     }
+
+    @Test
+    @DisplayName("management.endpoint.health.show-details=always, /actuator/health")
+    void ActuatorContainsHealthDetail() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/actuator/health"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                //拥有两个default Component, 即两个指标
+                .andExpect(MockMvcResultMatchers.jsonPath("components").value(Matchers.aMapWithSize(Matchers.greaterThanOrEqualTo(2))))
+                .andExpect(MockMvcResultMatchers.jsonPath("components.diskSpace").hasJsonPath())
+                .andExpect(MockMvcResultMatchers.jsonPath("components.ping").hasJsonPath())
+                .andExpect(MockMvcResultMatchers.jsonPath("components.ping.status").value("UP"));
+    }
 }
