@@ -1,5 +1,8 @@
 package com.auefly.sb07actuator;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.cumulative.CumulativeCounter;
+import io.micrometer.core.instrument.step.StepCounter;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -61,5 +64,23 @@ public class ActuatorExposeAllTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("contexts.application.mappings.servlets").exists());
     }
 
-
+    @Test
+    @DisplayName("查看MocMvc测试时都有哪些condition，与正常通过浏览器打开有什么不同")
+    @Disabled
+    void conditionsCountingTest(@Autowired ConditionsReportEndpoint conditionsReportEndpoint) throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/actuator/mappings"))
+                .andExpect(MockMvcResultMatchers.jsonPath("contexts.application.mappings.servlets").exists())
+                //如果通过网页打开，下面的jsonPath存在值，而在MockMvc的模拟下，该值未能找到，事实上，mappings下的servlets, dispatcherServlet均为空
+                .andExpect(MockMvcResultMatchers.jsonPath("contexts.application.mappings.servlets.name").doesNotExist());
+        AtomicInteger sum = new AtomicInteger();
+        for (ConditionsReportEndpoint.ContextConditionsDescriptor s : conditionsReportEndpoint.conditions().getContexts().values()) {
+            s.getPositiveMatches().forEach((key, value) -> {
+                        int count = 1;
+                        for (ConditionsReportEndpoint.MessageAndConditionDescriptor i : value) {
+                            System.out.println(i.getCondition() + ":" + count++ + ", " + sum.getAndIncrement());
+                        }
+                    }
+            );
+        }
+    }
 }
