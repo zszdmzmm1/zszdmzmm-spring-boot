@@ -1,8 +1,5 @@
 package com.auefly.sb07actuator;
 
-import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.cumulative.CumulativeCounter;
-import io.micrometer.core.instrument.step.StepCounter;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -93,5 +90,17 @@ public class ActuatorExposeAllTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("components.custom").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("status", Matchers.in(Arrays.asList("DOWN", "UP"))))
                 .andExpect(MockMvcResultMatchers.jsonPath("components.custom.status", Matchers.in(Arrays.asList("DOWN", "UP"))));
+    }
+
+    @Test
+    @DisplayName("")
+    void customMetrics() throws Exception {
+        double i = 1;
+        for (; i <= 10; i++) {
+            mockMvc.perform(MockMvcRequestBuilders.get("/custom-metrics"))
+                    .andExpect(MockMvcResultMatchers.content().string("count:"+ i));
+            mockMvc.perform(MockMvcRequestBuilders.get("/actuator/metrics/custom.viewCount"))
+                    .andExpect(MockMvcResultMatchers.jsonPath("measurements.[0].value", Matchers.equalTo(i)));
+        }
     }
 }
