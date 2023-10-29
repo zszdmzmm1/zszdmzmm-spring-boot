@@ -1,12 +1,11 @@
 package com.auefly.sb08usemyownstarter;
 
-import com.auefly.spring.boot.autoconfigure.GreetingAutoConfiguration;
+import com.auefly.spring.boot.autoconfigure.annotation.EnableGreeting;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-@Import(GreetingAutoConfiguration.class)
+@EnableGreeting
 public class Sb08UseMyOwnStarterApplication {
 
     public static void main(String[] args) {
